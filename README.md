@@ -22,7 +22,6 @@ touch interactions.
 - The app must work in Chrome, Firefox, Safari, Edge, and Internet Explorer 11.
 
 **Nice to have:**
-Nice to Have:
 - The app should show loading indicators while loading data.
 - The app should handle errors (such as trying to load data while offline) and show user-friendly
 error messages.
