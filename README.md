@@ -20,6 +20,7 @@ touch interactions.
 - The app must not throw any errors when being used.
 - The app should be deployed to a publicly accessible platform like GitHub Pages.
 - The app must work in Chrome, Firefox, Safari, Edge, and Internet Explorer 11.
+
 **Nice to have:**
 Nice to Have:
 - The app should show loading indicators while loading data.
