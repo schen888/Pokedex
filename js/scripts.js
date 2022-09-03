@@ -1,8 +1,3 @@
-let pokemonList=[
-    pokemon1,
-    pokemon2,
-    pokemon3
-];
 
 let pokemon1={
     name:'Bulbasaur',
@@ -21,3 +16,13 @@ let pokemon3={
     height:2,
     type: ['Grass','Poison']
 };
+
+let pokemonList=[
+    pokemon1,
+    pokemon2,
+    pokemon3
+];
+
+for(i=0;pokemonList[i];i++) {
+    document.write(`<p>${pokemonList[i].name} (height: ${pokemonList[i].height}m)</p>`);
+}
