@@ -24,5 +24,5 @@ let pokemonList=[
 ];
 
 for(i=0;pokemonList[i];i++) {
-    document.write(`<p>${pokemonList[i].name} (height: ${pokemonList[i].height}m)</p>`);
+    document.write(`<p><strong>${pokemonList[i].name}</strong> (Height: ${pokemonList[i].height}m)</p>`);
 }
