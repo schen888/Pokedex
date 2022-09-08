@@ -24,10 +24,11 @@ let pokemonList=[
 ];
 
 //List the name and height of every pokemon from the pokemonList. Label the pokemon with height great than 1.5.
-for(i=0;pokemonList[i];i++) {
-    if (pokemonList[i].height>1.5) {
-        document.write(`<p><strong>${pokemonList[i].name}</strong> (Height: ${pokemonList[i].height}m) - Wow, that's big!</p>`);
+function pokemonHeightClass(pokemon) {
+    if (pokemon.height>1.5) {
+        document.write(`<p><strong>${pokemon.name}</strong> (Height: ${pokemon.height}m) - Wow, that's big!</p>`);
     } else {
-        document.write(`<p><strong>${pokemonList[i].name}</strong> (Height: ${pokemonList[i].height}m)</p>`);
+        document.write(`<p><strong>${pokemon.name}</strong> (Height: ${pokemon.height}m)</p>`);
     }
 }
+pokemonList.forEach (pokemonHeightClass);
