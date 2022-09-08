@@ -36,9 +36,14 @@ let pokemonRepository= (function() {
         return pokemonList;
     }
 
+    function filterByName(searchText){
+        return pokemonList.filter (pokemon=>pokemon.name.indexOf(searchText)!==-1)
+    }
+
     return {
         add,
-        getAll
+        getAll,
+        filterByName
     }
 } ) ();
 
@@ -50,7 +55,6 @@ pokemonRepository.add(
     }
 );
 
-
 //List the name and height of every pokemon from the pokemonList. Label the pokemon with height great than 1.5.
 pokemonRepository.getAll().forEach (pokemon =>
     {
@@ -61,5 +65,7 @@ pokemonRepository.getAll().forEach (pokemon =>
         }
     }
 );
+
+console.log(pokemonRepository.filterByName('saur'));
 
 
