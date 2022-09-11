@@ -40,10 +40,21 @@ let pokemonRepository= (function() {
         return pokemonList.filter (pokemon=>pokemon.name.indexOf(searchText)!==-1)
     }
 
+    function addListItem(pokemon) {
+        let list=document.querySelector('.pokemon-list');
+        let listItem=document.createElement('li');
+        let button=document.createElement('button');
+        button.innerText=pokemon.name;
+        button.classList.add('pokemon-button');
+        list.appendChild(listItem);
+        listItem.appendChild(button);
+    }
+
     return {
         add,
         getAll,
-        filterByName
+        filterByName,
+        addListItem
     }
 } ) ();
 
@@ -56,15 +67,16 @@ pokemonRepository.add(
 );
 
 //List the name and height of every pokemon from the pokemonList. Label the pokemon with height great than 1.5.
-pokemonRepository.getAll().forEach (pokemon =>
+pokemonRepository.getAll().forEach (pokemonRepository.addListItem);
+
+/* pokemon =>
     {
         if (pokemon.height>1.5) {
             document.write(`<p><strong>${pokemon.name}</strong> (Height: ${pokemon.height}m) - Wow, that's big!</p>`);
         } else {
             document.write(`<p><strong>${pokemon.name}</strong> (Height: ${pokemon.height}m)</p>`);
         }
-    }
-);
+    } */
 
 console.log(pokemonRepository.filterByName('saur'));
 
