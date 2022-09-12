@@ -19,6 +19,8 @@ let pokemonRepository= (function() {
         }
     ];
 
+    /*Add single pokemon to pokemon list. Before adding check whether the data type is object and whether the object contains
+    the name, height and type keys. */
     function add(pokemon){
         if (typeof pokemon==="object") {
             let pokeKeys=Object.keys(pokemon);
@@ -32,14 +34,18 @@ let pokemonRepository= (function() {
         }
     }
 
+    /*Returen the whole pokemonList array. */
     function getAll(){
         return pokemonList;
     }
 
+    /*Filter pokemons with name contains certain text. Returns an array of pokemon objects. */
     function filterByName(searchText){
         return pokemonList.filter (pokemon=>pokemon.name.indexOf(searchText)!==-1)
     }
 
+    /*Add single pokemon item into the unordered list (pokemon-list class) as button, assign pokemon's name to the button
+    and by clicking the button, log the name of the pokemon in console.*/
     function addListItem(pokemon) {
         let list=document.querySelector('.pokemon-list');
         let listItem=document.createElement('li');
@@ -48,10 +54,13 @@ let pokemonRepository= (function() {
         button.classList.add('pokemon-button');
         list.appendChild(listItem);
         listItem.appendChild(button);
+        button.addEventListener('click', ()=>{
+            showDetails(pokemon);
+        });
     }
 
     function showDetails(pokemon) {
-        console.log(pokemon);
+        console.log(pokemon.name);
     }
 
     return {
@@ -62,6 +71,7 @@ let pokemonRepository= (function() {
     }
 } ) ();
 
+//Add one pokemon item.
 pokemonRepository.add(
     {
         name:'Charmander',
@@ -73,15 +83,5 @@ pokemonRepository.add(
 //List the name and height of every pokemon from the pokemonList. Label the pokemon with height great than 1.5.
 pokemonRepository.getAll().forEach (pokemonRepository.addListItem);
 
-/* pokemon =>
-    {
-        if (pokemon.height>1.5) {
-            document.write(`<p><strong>${pokemon.name}</strong> (Height: ${pokemon.height}m) - Wow, that's big!</p>`);
-        } else {
-            document.write(`<p><strong>${pokemon.name}</strong> (Height: ${pokemon.height}m)</p>`);
-        }
-    } */
-
-console.log(pokemonRepository.filterByName('saur'));
 
 
