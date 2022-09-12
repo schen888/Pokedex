@@ -50,6 +50,10 @@ let pokemonRepository= (function() {
         listItem.appendChild(button);
     }
 
+    function showDetails(pokemon) {
+        console.log(pokemon);
+    }
+
     return {
         add,
         getAll,
