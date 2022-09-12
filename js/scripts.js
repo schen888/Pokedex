@@ -21,6 +21,8 @@ let pokemonRepository= (function() {
 
     /*Add single pokemon to pokemon list. Before adding check whether the data type is object and whether the object contains
     the name, height and type keys. */
+    /*Another way to check whether the added pokemon item is object and contains name, height and type keys:
+    if (typeof pokemon==="object" && "name" in pokemon && "height" in pokemon && "type" in pokemon) */
     function add(pokemon){
         if (typeof pokemon==="object") {
             let pokeKeys=Object.keys(pokemon);
