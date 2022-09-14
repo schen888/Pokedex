@@ -1,38 +1,31 @@
 let pokemonRepository= (function() {
-    let pokemonList=[
-        {
-        name:'Bulbasaur',
-        height:0.7,
-        type: ['Grass','Poison']
-        },
+    let pokemonList=[];
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
-        {
-        name:'Ivysaur',
-        height:1,
-        type: ['Grass','Poison']
-        },
+    /*To fetch the pokemon list from the API and to add every single pokemon object from the list in to the pokemonList array.*/
+    function loadList() {
+        return fetch(apiUrl).then(function (response) {
+          return response.json();
+        }).then(function (json) {
+          json.results.forEach(function (item) {
+            let pokemon = {
+              name: item.name,
+              detailsUrl: item.url
+            };
+            add(pokemon);
+          });
+        }).catch(function (e) {
+          console.error(e);
+        })
+      }
 
-        {
-        name:'Venusaur',
-        height:2,
-        type: ['Grass','Poison']
-        }
-    ];
-
-    /*Add single pokemon to pokemon list. Before adding check whether the data type is object and whether the object contains
-    the name, height and type keys. */
-    /*Another way to check whether the added pokemon item is object and contains name, height and type keys:
-    if (typeof pokemon==="object" && "name" in pokemon && "height" in pokemon && "type" in pokemon) */
+    /*Add single pokemon to pokemonList array. Before adding check whether the data type is object and whether the object contains
+    the 'name' key. */
     function add(pokemon){
-        if (typeof pokemon==="object") {
-            let pokeKeys=Object.keys(pokemon);
-            if (pokeKeys.indexOf('name')!==-1 && pokeKeys.indexOf('height')!==-1 && pokeKeys.indexOf('type')!==-1){
-                pokemonList.push(pokemon);                
-            } else {
-                console.log("Please enter the name, height and type of the pokemon!");
-            }
+        if (typeof pokemon==="object" && "name" in pokemon) {
+            pokemonList.push(pokemon);
         } else {
-            console.log("Please input valid data type");
+            console.log("Please input valid data type. The data need to be an object and contains the 'name' key.");
         }
     }
 
@@ -66,6 +59,7 @@ let pokemonRepository= (function() {
     }
 
     return {
+        loadList,
         add,
         getAll,
         filterByName,
@@ -73,17 +67,11 @@ let pokemonRepository= (function() {
     }
 } ) ();
 
-//Add one pokemon item.
-pokemonRepository.add(
-    {
-        name:'Charmander',
-        height: 0.6,
-        type: ['Fire']
-    }
-);
 
-//List the name and height of every pokemon from the pokemonList. Label the pokemon with height great than 1.5.
-pokemonRepository.getAll().forEach (pokemonRepository.addListItem);
+//List the name and height of every pokemon from the pokemonList.
+pokemonRepository.loadList().then(function(){
+    pokemonRepository.getAll().forEach (pokemonRepository.addListItem)
+});
 
 
 
