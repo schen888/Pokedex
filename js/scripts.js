@@ -39,8 +39,8 @@ let pokemonRepository= (function() {
         return pokemonList.filter (pokemon=>pokemon.name.indexOf(searchText)!==-1)
     }
 
-    /*Add single pokemon item into the unordered list (pokemon-list class) as button, assign pokemon's name to the button
-    and by clicking the button, log the name of the pokemon in console.*/
+    /*Add single pokemon item into the unordered list (pokemon-list class) on the index page as a button, 
+    assign pokemon's name to the button and by clicking the button, log the name of the pokemon in console.*/
     function addListItem(pokemon) {
         let list=document.querySelector('.pokemon-list');
         let listItem=document.createElement('li');
@@ -67,8 +67,7 @@ let pokemonRepository= (function() {
     }
 } ) ();
 
-
-//List the name and height of every pokemon from the pokemonList.
+//On the index page to list every pokemon from the pokemonList in the form of button.
 pokemonRepository.loadList().then(function(){
     pokemonRepository.getAll().forEach (pokemonRepository.addListItem)
 });
