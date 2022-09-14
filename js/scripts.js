@@ -2,27 +2,10 @@ let pokemonRepository= (function() {
     let pokemonList=[];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
-    /*To fetch the pokemon list from the API and to add every single pokemon object from the list in to the pokemonList array.*/
-    function loadList() {
-        return fetch(apiUrl).then(function (response) {
-          return response.json();
-        }).then(function (json) {
-          json.results.forEach(function (item) {
-            let pokemon = {
-              name: item.name,
-              detailsUrl: item.url
-            };
-            add(pokemon);
-          });
-        }).catch(function (e) {
-          console.error(e);
-        })
-      }
-
     /*Add single pokemon to pokemonList array. Before adding check whether the data type is object and whether the object contains
     the 'name' key. */
     function add(pokemon){
-        if (typeof pokemon==="object" && "name" in pokemon) {
+        if (typeof pokemon==="object" && "name" in pokemon && "detailsUrl" in pokemon) {
             pokemonList.push(pokemon);
         } else {
             console.log("Please input valid data type. The data need to be an object and contains the 'name' key.");
@@ -54,16 +37,51 @@ let pokemonRepository= (function() {
         });
     }
 
+    /*To fetch the pokemon list from the API and to add all the pokemon objects from the list in to the pokemonList array.*/
+    function loadList() {
+        return fetch(apiUrl).then(function (response) {
+          return response.json();
+        }).then(function (json) {
+          json.results.forEach(function (item) {
+            let pokemon = {
+              name: item.name,
+              detailsUrl: item.url
+            };
+            add(pokemon);
+          });
+        }).catch(function (e) {
+          console.error(e);
+        })
+      }
+
+      //should here the variable item be changed to pokemon?
+      /* */
+      function loadDetails (pokemon) {
+        let url=pokemon.detailsUrl;
+        return fetch(url).then(function (response) {
+            return response.json()
+        }).then(function(details){
+            pokemon.imageUrl=details.sprites.front_default;
+            pokemon.height=details.height;
+            pokemon.types=details.types;
+        }).catch(function (e){
+            crossOriginIsolated.error(e);
+        });
+      }
+
     function showDetails(pokemon) {
-        console.log(pokemon.name);
+        loadDetails(pokemon).then(function(){
+            console.log(pokemon)
+        });
     }
 
-    return {
-        loadList,
+    return {        
         add,
         getAll,
         filterByName,
-        addListItem
+        addListItem,
+        loadList,
+        loadDetails
     }
 } ) ();
 
