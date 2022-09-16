@@ -73,7 +73,14 @@ let pokemonRepository= (function() {
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function(){
             console.log(pokemon)
+            /*show modal */
+            let modalContainer=document.querySelector('#modal-container');
+            modalContainer.classList.add('is-visible');
         });
+    }
+
+    function showModal(){
+
     }
 
     return {        
