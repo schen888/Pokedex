@@ -53,7 +53,7 @@ ul.pokemon-list {
     text-align: left;
   }
   
-  .modal-close {
+  .modal-close-button {
     float: right;
     -webkit-appearance: none;
     border: 0;
@@ -64,6 +64,7 @@ ul.pokemon-list {
   
   .modal h1 {
     margin-top: 0;
+    border-bottom: 2px solid rgba(0,0,0,0.2);
   }
   
   .modal p {

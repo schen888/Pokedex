@@ -73,9 +73,51 @@ let pokemonRepository= (function() {
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function(){
             console.log(pokemon)
-            /*show modal */
+
+            /*Show modal */
+            /*To show modal container including the modal, when the pokemon button is clicked. Via click event to call the
+            showDetails function and here the 'is-visible' class is added to the container.*/
             let modalContainer=document.querySelector('#modal-container');
             modalContainer.classList.add('is-visible');
+
+            /*Creat modal element and elements within modal, which are header, content and closeButton. Within content there are
+            imageContainer, pokemonInfo1 and pokemonInfo2. The imageContainer is a wrapper for the pokemonImage element.*/
+            let modal=document.createElement('div');
+            modal.classList.add('modal');
+            modal.innerHTML='';
+
+            let modalCloseButton=document.createElement('button');
+            modalCloseButton.classList.add('modal-close-button');
+            modalCloseButton.innerText='Close';
+            //modalCloseButton.addEventListener('click', hideModal);
+
+            let modalHeader=document.createElement('h1');
+            modalHeader.innerText=pokemon.name;
+            
+            let modalContent=document.createElement('div');
+            modalContent.classList.add('modal-content');
+
+            let imageContainer=document.createElement('div');
+            imageContainer.classList.add('image-container');
+            let pokemonImage=document.createElement('img');
+            pokemonImage.src=pokemon.imageUrl;
+            pokemon.alt='A front image of the choosen pokemon';
+
+            let pokemonInfo1=document.createElement('p');
+            pokemonInfo1.innerHTML=`Height: ${pokemon.height}`;
+
+            let pokemonInfo2=document.createElement('p');
+            pokemonInfo2.innerText='Type: #';
+
+            //Append all the elements created here.
+            modalContainer.appendChild(modal);
+            modal.appendChild(modalCloseButton);
+            modal.appendChild(modalHeader);
+            modal.appendChild(modalContent);
+            modalContent.appendChild(imageContainer);
+            modalContent.appendChild(pokemonInfo1);
+            modalContent.appendChild(pokemonInfo2);
+            imageContainer.appendChild(pokemonImage);
         });
     }
 
