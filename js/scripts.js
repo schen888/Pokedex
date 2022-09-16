@@ -105,13 +105,24 @@ let pokemonRepository= (function() {
             imageContainer.classList.add('image-container');
             let pokemonImage=document.createElement('img');
             pokemonImage.src=pokemon.imageUrl;
-            pokemon.alt='A front image of the choosen pokemon';
+            pokemonImage.alt='A front image of the choosen pokemon';
 
             let pokemonInfo1=document.createElement('p');
             pokemonInfo1.innerHTML=`Height: ${pokemon.height}`;
 
+            //Fetch the type names from the types array of the detailed pokemon info object and assign them to a string. 
+            let types=pokemon.types;
+            let pokemonTypes='';
+            for (let i=0; i<types.length; i++) {
+                if (!types[i+1]) {
+                pokemonTypes=pokemonTypes + types[i].type.name;
+                } else {
+                pokemonTypes=pokemonTypes + types[i].type.name +', ';
+                }
+            }
+            
             let pokemonInfo2=document.createElement('p');
-            pokemonInfo2.innerText='Type: #';
+            pokemonInfo2.innerText='Type: ' + pokemonTypes;
 
             //Append all the elements created here. 
             modal.appendChild(modalCloseButton);
