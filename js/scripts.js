@@ -28,7 +28,7 @@ let pokemonRepository= (function() {
         let list=document.querySelector('.pokemon-list');
         let listItem=document.createElement('li');
         let button=document.createElement('button');
-        button.innerText=pokemon.name;
+        button.innerText=uppercaseFirst(pokemon.name);
         button.classList.add('pokemon-button');
         list.appendChild(listItem);
         listItem.appendChild(button);
@@ -96,7 +96,7 @@ let pokemonRepository= (function() {
             modalCloseButton.addEventListener('click', hideModal);
 
             let modalHeader=document.createElement('h1');
-            modalHeader.innerText=pokemon.name;
+            modalHeader.innerText=uppercaseFirst(pokemon.name);
             
             let modalContent=document.createElement('div');
             modalContent.classList.add('modal-content');
@@ -109,20 +109,8 @@ let pokemonRepository= (function() {
 
             let pokemonInfo1=document.createElement('p');
             pokemonInfo1.innerHTML=`Height: ${pokemon.height}`;
-
-            //Fetch the type names from the types array of the detailed pokemon info object and assign them to a string. 
-            let types=pokemon.types;
-            let pokemonTypes='';
-            for (let i=0; i<types.length; i++) {
-                if (!types[i+1]) {
-                pokemonTypes=pokemonTypes + types[i].type.name;
-                } else {
-                pokemonTypes=pokemonTypes + types[i].type.name +', ';
-                }
-            }
-            
             let pokemonInfo2=document.createElement('p');
-            pokemonInfo2.innerText='Type: ' + pokemonTypes;
+            pokemonInfo2.innerText='Type: ' + pokemonTypes(pokemon);
 
             //Append all the elements created here. 
             modal.appendChild(modalCloseButton);
@@ -132,6 +120,20 @@ let pokemonRepository= (function() {
             modalContent.appendChild(pokemonInfo1);
             modalContent.appendChild(pokemonInfo2);
             imageContainer.appendChild(pokemonImage);
+
+            //Fetch the type names from the types array of the detailed pokemon info object and assign them to a string. 
+            function pokemonTypes (pokemon) {
+                let types=pokemon.types;
+                let pokemonTypes='';
+                for (let i=0; i<types.length; i++) {
+                    if (!types[i+1]) {
+                    pokemonTypes=pokemonTypes + types[i].type.name;
+                    } else {
+                    pokemonTypes=pokemonTypes + types[i].type.name +', ';
+                    }
+                }
+                return pokemonTypes;
+            }     
         });
     }
 
@@ -154,6 +156,11 @@ let pokemonRepository= (function() {
         }
     });
 
+    function uppercaseFirst(str){
+        str2=str.charAt(0).toUpperCase() + str.slice(1);
+        return str2;
+    }
+
     return {        
         add,
         getAll,
@@ -168,6 +175,4 @@ let pokemonRepository= (function() {
 pokemonRepository.loadList().then(function(){
     pokemonRepository.getAll().forEach (pokemonRepository.addListItem)
 });
-
-
 
