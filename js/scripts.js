@@ -70,26 +70,30 @@ let pokemonRepository= (function() {
         });
       }
 
+    /*Modal*/
+    //modalContainer and modal need to be global variable for the showDetails function and the hideModal function.
+    let modalContainer=document.querySelector('#modal-container');
+    let modal=document.createElement('div');
+    modal.classList.add('modal');
+    modalContainer.appendChild(modal);
+
+    /*addListItem function calls this function, via click event on pokemon button. Modal will be shown, with detailed pokemon
+    information on it.*/
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function(){
             console.log(pokemon)
-
             /*Show modal */
-            /*To show modal container including the modal, when the pokemon button is clicked. Via click event to call the
-            showDetails function and here the 'is-visible' class is added to the container.*/
-            let modalContainer=document.querySelector('#modal-container');
+            //To show modal container, when the pokemon button is clicked the 'is-visible' class will be added to the container.
             modalContainer.classList.add('is-visible');
 
-            /*Creat modal element and elements within modal, which are header, content and closeButton. Within content there are
+            /*Creat elements within modal, which are header, content and closeButton. Within content there are
             imageContainer, pokemonInfo1 and pokemonInfo2. The imageContainer is a wrapper for the pokemonImage element.*/
-            let modal=document.createElement('div');
-            modal.classList.add('modal');
             modal.innerHTML='';
 
             let modalCloseButton=document.createElement('button');
             modalCloseButton.classList.add('modal-close-button');
             modalCloseButton.innerText='Close';
-            //modalCloseButton.addEventListener('click', hideModal);
+            modalCloseButton.addEventListener('click', hideModal);
 
             let modalHeader=document.createElement('h1');
             modalHeader.innerText=pokemon.name;
@@ -109,8 +113,7 @@ let pokemonRepository= (function() {
             let pokemonInfo2=document.createElement('p');
             pokemonInfo2.innerText='Type: #';
 
-            //Append all the elements created here.
-            modalContainer.appendChild(modal);
+            //Append all the elements created here. 
             modal.appendChild(modalCloseButton);
             modal.appendChild(modalHeader);
             modal.appendChild(modalContent);
@@ -121,9 +124,24 @@ let pokemonRepository= (function() {
         });
     }
 
-    function showModal(){
-
+    /*Reset the content in modal and hide the modal container.*/
+    function hideModal(){
+        modal.innerHTML='';
+        modalContainer.classList.remove('is-visible');
     }
+
+    window.addEventListener('keydown',(e)=>{
+        if (e.key==='Escape' && modalContainer.classList.contains('is-visible')) {
+            hideModal();
+        }
+    });
+
+    //when a element is displayed as none, can it still be clicked on???
+    modalContainer.addEventListener('click', (e)=>{
+        if (e.target===modalContainer && modalContainer.classList.contains('is-visible')) {
+            hideModal();
+        }
+    });
 
     return {        
         add,
