@@ -17,11 +17,6 @@ let pokemonRepository= (function() {
         return pokemonList;
     }
 
-    /*Filter pokemons with name contains certain text. Returns an array of pokemon objects. */
-    function filterByName(searchText){
-        return pokemonList.filter (pokemon=>pokemon.name.indexOf(searchText)!==-1)
-    }
-
     /*Add single pokemon item into the unordered list (pokemon-list class) on the index page as a button, 
     assign pokemon's name to the button and by clicking the button, log the name of the pokemon in console.*/
     function addListItem(pokemon) {
@@ -161,18 +156,33 @@ let pokemonRepository= (function() {
         return str2;
     }
 
+        /*Filter pokemons with name contains certain text. Returns an array of pokemon objects. */
+    function filterByName(searchText) {
+        return pokemonList.filter(pokemon => pokemon.name.indexOf(searchText)!==-1);
+    }
+
+    function search(){
+        let input=document.getElementById('search');
+        console.log(filterByName(input.value));
+    }
+    
+
     return {        
         add,
         getAll,
         filterByName,
         addListItem,
         loadList,
-        loadDetails
+        loadDetails,
+        search
     }
 } ) ();
 
+
+
 //On the index page to list every pokemon from the pokemonList in the form of button.
 pokemonRepository.loadList().then(function(){
-    pokemonRepository.getAll().forEach (pokemonRepository.addListItem)
+    pokemonRepository.getAll().forEach (pokemonRepository.addListItem);
 });
 
+//window.pokemonRepository = pokemonRepository;
