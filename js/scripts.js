@@ -37,7 +37,8 @@ let pokemonRepository= (function() {
         });
     }
 
-    /*To fetch the pokemon list from the API and to add all the pokemon objects from the list in to the pokemonList array.*/
+    /*To fetch the pokemon list from the API and to add all the pokemon objects from the list into the pokemonList array
+    via calling the add function. Every pokemon object contains the name and detailsUrl keys.*/
     function loadList() {
         return fetch(apiUrl).then(function (response) {
           return response.json();
@@ -54,8 +55,8 @@ let pokemonRepository= (function() {
         })
       }
 
-      //should here the variable item be changed to pokemon?
-      /* */
+      /*To fetch the detailed information list from single pokemon from API, return a details object. Add and assign 
+      the imageUrl, height and types(array) properties to the pokemon object in pokemonList.*/
       function loadDetails (pokemon) {
         let url=pokemon.detailsUrl;
         return fetch(url).then(function (response) {
