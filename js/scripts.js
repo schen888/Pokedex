@@ -103,7 +103,8 @@ let pokemonRepository= (function() {
            
             //Fetch the type names from the types array of the detailed pokemon info object and assign them to a string. 
             function pokemonTypes (pokemon) {
-                //return pokemon.types.map(item => item.type.name).join(', ');
+                /* Alternative for this function:
+                return pokemon.types.map(item => item.type.name).join(', ');*/
 
                 let types=pokemon.types;
                 let pokemonTypes='';
@@ -150,7 +151,6 @@ let pokemonRepository= (function() {
         search
     }
 } ) ();
-
 
 
 //On the index page to list every pokemon from the pokemonList in the form of button.
