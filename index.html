@@ -4,27 +4,28 @@
         <meta charset="uft-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <!--Google Font Poppins 400+700+italic-->
+        <!--Google Font Permanent marker 400 regular-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/png" href="./img/favicon-32x32.png" sizes="32x32" />
         <link href="css/styles.css" rel="stylesheet" type="text/css">
         <title>Pokedex</title>
     </head>
-    <body>
+    <body>        
         <!-- Image and text -->
         <nav class="navbar navbar-light bg-light fixed-top">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="index.html">
                 <img src="./img/pokemon.png" width="80" height="80" class="d-inline-block align-middle" alt="A logo picture of my pokedex app, which is a pokemon ball in color red and white">
-                <h1 class="d-inline-block align-middle"><strong>Pokédex</strong></h1>
+                <h1 class="d-inline-block align-middle" id="header-text"><strong>Pokédex</strong></h1>
             </a>
             <form class="form-inline">
                 <input id="search-pokemon" onkeyup="pokemonRepository.search();" class="form-control mr-sm-2" type="search" placeholder="Search pokemon" aria-label="Search">
             </form>
         </nav>
-
+    
         <main class="container">
-            <ul class="pokemon-list" id="pokemon-list">Loading...</ul>
+            <div class="pokemon-list row" id="pokemon-list">Loading...</div>
             <!-- <div id="modal-container"></div> -->
 
             <!-- Modal -->
@@ -43,17 +44,13 @@
                 </div>
                 </div>
             </div>
-            
-
-
-
-
         </main>
+        
 
         <script src="js/promise-polyfill.js"></script>
         <script src="js/fetch-polyfill.js"></script>
         <script src="js/scripts.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>

@@ -1,6 +1,7 @@
 let pokemonRepository= (function() {
     let pokemonList=[];
-    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=1154';
+    let pokemonListContainer=document.querySelector('#pokemon-list');
 
     /*Add single pokemon to pokemonList array. Before adding check whether the data type is object and whether the object contains
     the 'name' key. */
@@ -20,14 +21,22 @@ let pokemonRepository= (function() {
     /*Add single pokemon item into the unordered list (pokemon-list class) on the index page as a button, 
     assign pokemon's name to the button and by clicking the button, log the name of the pokemon in console.*/
     function addListItem(pokemon) {
-        let list=document.querySelector('.pokemon-list');
-        let listItem=document.createElement('li');
+        let listItem=document.createElement('div');
+        listItem.classList.add('pokemon-button-wrapper');
+        listItem.classList.add('col');
+        listItem.classList.add('col-lg-3');
+        listItem.classList.add('col-md-4');
+        listItem.classList.add('col-sm-6');
+        
+
         let button=document.createElement('button');
         button.innerText=uppercaseFirst(pokemon.name);
         button.classList.add('pokemon-button');
+        button.classList.add('btn');
+        button.classList.add('btn-secondary');
         button.setAttribute('data-toggle', 'modal');
         button.setAttribute('data-target', '#pokemon-modal')
-        list.appendChild(listItem);
+        pokemonListContainer.appendChild(listItem);
         listItem.appendChild(button);
         button.addEventListener('click', ()=>{
             showDetails(pokemon);
@@ -78,24 +87,27 @@ let pokemonRepository= (function() {
 
             let modalBody=document.querySelector('.modal-body');
             modalBody.innerHTML='';
+            
             let pokemonImage=document.createElement('img');
-            pokemonImage.src=pokemon.imageUrl;
+            pokemonImage.src=pokemon.imageUrl || './img/pokemon_1280.jpg';
             pokemonImage.alt='A front image of the choosen pokemon';
             pokemonImage.classList.add('pokemon-img');
-
-            let pokemonInfo1=document.createElement('p');
-            pokemonInfo1.innerHTML=`Height: ${pokemon.height}`;
-            let pokemonInfo2=document.createElement('p');
-            pokemonInfo2.innerText='Type: ' + pokemonTypes(pokemon);
-
             modalBody.appendChild(pokemonImage);
+             
+            let pokemonInfo1=document.createElement('p');
+            pokemonInfo1.innerHTML=`Height: ${pokemon.height || '?'}`;
+            let pokemonInfo2=document.createElement('p');
+            pokemonInfo2.innerText='Type: ' + (pokemonTypes(pokemon) || '?');
             modalBody.appendChild(pokemonInfo1);
             modalBody.appendChild(pokemonInfo2);
            
             //Fetch the type names from the types array of the detailed pokemon info object and assign them to a string. 
             function pokemonTypes (pokemon) {
+                //return pokemon.types.map(item => item.type.name).join(', ');
+
                 let types=pokemon.types;
                 let pokemonTypes='';
+
                 for (let i=0; i<types.length; i++) {
                     if (!types[i+1]) {
                     pokemonTypes=pokemonTypes + types[i].type.name;
@@ -121,29 +133,20 @@ let pokemonRepository= (function() {
     function search(){
         let input=document.getElementById('search-pokemon');
         let searchList = filterByName(input.value);
-        let showList=document.querySelector('#pokemon-list');
-        showList.innerHTML="";
-        searchList.forEach((pokemon)=>{
-            let searchListItem=document.createElement('li');
-            let searchListButton=document.createElement('button');
-            searchListButton.innerText=uppercaseFirst(pokemon.name);
-            searchListButton.classList.add('pokemon-button');
-            showList.appendChild(searchListItem);
-            searchListItem.appendChild(searchListButton);
-            searchListButton.addEventListener('click', ()=>{
-            showDetails(pokemon);
-            })
-        })
+        pokemonListContainer.innerHTML="";
+        searchList.forEach(addListItem);
     }
     
 
     return {        
         add,
         getAll,
-        filterByName,
         addListItem,
         loadList,
         loadDetails,
+        showDetails,
+        uppercaseFirst,
+        filterByName,
         search
     }
 } ) ();
