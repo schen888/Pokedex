@@ -25,6 +25,8 @@ let pokemonRepository= (function() {
         let button=document.createElement('button');
         button.innerText=uppercaseFirst(pokemon.name);
         button.classList.add('pokemon-button');
+        button.setAttribute('data-toggle', 'modal');
+        button.setAttribute('data-target', '#pokemon-modal')
         list.appendChild(listItem);
         listItem.appendChild(button);
         button.addEventListener('click', ()=>{
@@ -67,56 +69,29 @@ let pokemonRepository= (function() {
       }
 
     /*Modal*/
-    //modalContainer and modal need to be global variable for the showDetails function and the hideModal function.
-    let modalContainer=document.querySelector('#modal-container');
-    let modal=document.createElement('div');
-    modal.classList.add('modal');
-    modalContainer.appendChild(modal);
-
     /*addListItem function calls this function, via click event on pokemon button. Modal will be shown, with detailed pokemon
     information on it.*/
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function(){
-            console.log(pokemon)
-            /*Show modal */
-            //To show modal container, when the pokemon button is clicked the 'is-visible' class will be added to the container.
-            modalContainer.classList.add('is-visible');
+            let modalTitle=document.querySelector('.modal-title');
+            modalTitle.innerText=uppercaseFirst(pokemon.name);
 
-            /*Creat elements within modal, which are header, content and closeButton. Within content there are
-            imageContainer, pokemonInfo1 and pokemonInfo2. The imageContainer is a wrapper for the pokemonImage element.*/
-            modal.innerHTML='';
-
-            let modalCloseButton=document.createElement('button');
-            modalCloseButton.classList.add('modal-close-button');
-            modalCloseButton.innerText='Close';
-            modalCloseButton.addEventListener('click', hideModal);
-
-            let modalHeader=document.createElement('h1');
-            modalHeader.innerText=uppercaseFirst(pokemon.name);
-            
-            let modalContent=document.createElement('div');
-            modalContent.classList.add('modal-content');
-
-            let imageContainer=document.createElement('div');
-            imageContainer.classList.add('image-container');
+            let modalBody=document.querySelector('.modal-body');
+            modalBody.innerHTML='';
             let pokemonImage=document.createElement('img');
             pokemonImage.src=pokemon.imageUrl;
             pokemonImage.alt='A front image of the choosen pokemon';
+            pokemonImage.classList.add('pokemon-img');
 
             let pokemonInfo1=document.createElement('p');
             pokemonInfo1.innerHTML=`Height: ${pokemon.height}`;
             let pokemonInfo2=document.createElement('p');
             pokemonInfo2.innerText='Type: ' + pokemonTypes(pokemon);
 
-            //Append all the elements created here. 
-            modal.appendChild(modalCloseButton);
-            modal.appendChild(modalHeader);
-            modal.appendChild(modalContent);
-            modalContent.appendChild(imageContainer);
-            modalContent.appendChild(pokemonInfo1);
-            modalContent.appendChild(pokemonInfo2);
-            imageContainer.appendChild(pokemonImage);
-
+            modalBody.appendChild(pokemonImage);
+            modalBody.appendChild(pokemonInfo1);
+            modalBody.appendChild(pokemonInfo2);
+           
             //Fetch the type names from the types array of the detailed pokemon info object and assign them to a string. 
             function pokemonTypes (pokemon) {
                 let types=pokemon.types;
@@ -133,31 +108,12 @@ let pokemonRepository= (function() {
         });
     }
 
-    /*Reset the content in modal and hide the modal container.*/
-    function hideModal(){
-        modal.innerHTML='';
-        modalContainer.classList.remove('is-visible');
-    }
-
-    window.addEventListener('keydown',(e)=>{
-        if (e.key==='Escape' && modalContainer.classList.contains('is-visible')) {
-            hideModal();
-        }
-    });
-
-    //when a element is displayed as none, can it still be clicked on???
-    modalContainer.addEventListener('click', (e)=>{
-        if (e.target===modalContainer && modalContainer.classList.contains('is-visible')) {
-            hideModal();
-        }
-    });
-
     function uppercaseFirst(str){
         str2=str.charAt(0).toUpperCase() + str.slice(1);
         return str2;
     }
 
-        /*Filter pokemons with name contains certain text. Returns an array of pokemon objects. */
+    /*Filter pokemons with name contains certain text. Returns an array of pokemon objects. */
     function filterByName(searchText) {
         return pokemonList.filter(pokemon => pokemon.name.indexOf(searchText)!==-1);
     }
