@@ -38,13 +38,14 @@ let pokemonRepository= (function() {
         return fetch(apiUrl).then(function (response) {
           return response.json();
         }).then(function (json) {
-          json.results.forEach(function (item) {
-            let pokemon = {
-              name: item.name,
-              detailsUrl: item.url
-            };
-            add(pokemon);
-          });
+            document.getElementById('pokemon-list').innerHTML='';
+            json.results.forEach(function (item) {
+                let pokemon = {
+                name: item.name,
+                detailsUrl: item.url
+                };
+                add(pokemon);
+            });
         }).catch(function (e) {
           console.error(e);
         })
@@ -162,8 +163,21 @@ let pokemonRepository= (function() {
     }
 
     function search(){
-        let input=document.getElementById('search');
-        console.log(filterByName(input.value));
+        let input=document.getElementById('search-pokemon');
+        let searchList = filterByName(input.value);
+        let showList=document.querySelector('#pokemon-list');
+        showList.innerHTML="";
+        searchList.forEach((pokemon)=>{
+            let searchListItem=document.createElement('li');
+            let searchListButton=document.createElement('button');
+            searchListButton.innerText=uppercaseFirst(pokemon.name);
+            searchListButton.classList.add('pokemon-button');
+            showList.appendChild(searchListItem);
+            searchListItem.appendChild(searchListButton);
+            searchListButton.addEventListener('click', ()=>{
+            showDetails(pokemon);
+            })
+        })
     }
     
 
@@ -185,4 +199,4 @@ pokemonRepository.loadList().then(function(){
     pokemonRepository.getAll().forEach (pokemonRepository.addListItem);
 });
 
-//window.pokemonRepository = pokemonRepository;
+window.pokemonRepository = pokemonRepository;
