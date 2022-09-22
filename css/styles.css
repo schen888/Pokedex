@@ -9,8 +9,17 @@ main {
     text-align: center;
 }
 
-.header {
+header {
     margin:10px 0;
+}
+
+.header-img-wrapper {
+  width:146px;
+  height: 146px;
+}
+
+.header-img {
+  width:100%;
 }
 
 ul.pokemon-list {
@@ -27,6 +36,7 @@ ul.pokemon-list {
     border-radius:10px;
     background: none;
     margin:2px 0;
+    font-family: inherit;
     font-weight:700;
     font-size: 16px;
 }
