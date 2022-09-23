@@ -152,8 +152,8 @@ let pokemonRepository= (function() {
      function initSearch() {
         searchField.addEventListener('keyup',search);
         searchField.addEventListener('keyup',(e)=>{
-            alert(e.code + ' ' + e.keyCode + ' ' + e.charCode + ' ' + e.which);
-            if(e.code==='Enter'){
+            let key = e.code || e.keyCode;
+            if(key === 'Enter' || key === 13) {
                 searchField.blur();
             }
         })
