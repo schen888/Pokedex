@@ -102,7 +102,7 @@ let pokemonRepository= (function() {
 
             //Fetch the type names from the types array of the detailed pokemon info object. 
             function strPokemonTypes (pokemon) {
-                return pokemon.types.map(item => item.type.name).join(', ');
+                return pokemon.types.map(item => uppercaseFirst(item.type.name)).join(', ');
             }     
         });
     }
@@ -136,6 +136,7 @@ let pokemonRepository= (function() {
         return str2;
     }
 
+    //Search pokemon
     /*Filter pokemons with name contains certain text. Returns an array of pokemon objects. */
     function filterByName(searchText) {
         return pokemonList.filter(pokemon => pokemon.name.toUpperCase().indexOf(searchText.toUpperCase())!==-1);
