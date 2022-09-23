@@ -2,7 +2,7 @@ let pokemonRepository= (function() {
     let pokemonList=[];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=1154';
     let pokemonListContainer=document.querySelector('#pokemon-list');
-
+    
     /*To fetch the pokemon list from the API. Every pokemon object contains the name and detailsUrl keys.*/
     function loadList() {
         return fetch(apiUrl).then(function (response) {
@@ -71,35 +71,64 @@ let pokemonRepository= (function() {
         }).catch(e=>crossOriginIsolated.error(e));
     }
     
+    //Modal
+    let modalTitle=document.querySelector('.modal-title');
+    let modalBody=document.querySelector('.modal-body');
+    
     /*addListItem function calls this function, via click event on pokemon button modal will be filled with detailed infos.*/
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function(){
-            let modalTitle=document.querySelector('.modal-title');
             modalTitle.innerText=uppercaseFirst(pokemon.name);
-
-            let modalBody=document.querySelector('.modal-body');
+            modalBody.innerText='';
             
-            let pokemonImage=document.querySelector('#pokemon-img');
-            console.log(pokemonImage);
-            if(pokemon.imageUrl){
-                pokemonImage.src=pokemon.imageUrl;
-            }
-             
-            let pokemonHeight=document.getElementById('pokemon-height');
-            console.log(pokemonHeight);
-            pokemonHeight.innerText=`Height: ${pokemon.height || '?'}`;
+            let pokemonImage=document.createElement('img');
+            pokemonImage.classList.add('pokemon-img');
+            pokemonImage.alt = 'A front image of the choosen pokemon';
+            pokemonImage.src = pokemon.imageUrl || 'img/pokemon.png';
 
-            let pokemonWeight=document.getElementById('pokemon-weight');
+            let pokemonHeight=document.createElement('p');
+            pokemonHeight.innerText=`Height: ${pokemon.height || '?'}`;
+        
+            let pokemonWeight=document.createElement('p');
             pokemonWeight.innerText=`Weight: ${pokemon.weight || '?'}`;
 
-            let pokemonTypes=document.getElementById('pokemon-types');
+            let pokemonTypes=document.createElement('p');
             pokemonTypes.innerText='Type: ' + (strPokemonTypes(pokemon) || '?');
-           
+
+            modalBody.appendChild(pokemonImage);
+            modalBody.appendChild(pokemonHeight);
+            modalBody.appendChild(pokemonWeight);
+            modalBody.appendChild(pokemonTypes);
+
             //Fetch the type names from the types array of the detailed pokemon info object. 
             function strPokemonTypes (pokemon) {
                 return pokemon.types.map(item => item.type.name).join(', ');
             }     
         });
+    }
+
+    function resetModalContent(){
+        modalTitle.innerText='Pokémon name';
+        modalBody.innerHTML='Loading...';
+    }
+
+    function resetModalByClose(){
+        let modalCloseButton=document.getElementById('modal-close-button')
+        modalCloseButton.addEventListener('click', resetModalContent);
+
+        window.addEventListener('keydown',(e)=>{
+            if(e.key==='Escape'){
+                resetModalContent();
+            }
+        });
+
+        let modalContainer=document.getElementById('pokemon-modal');
+        modalContainer.addEventListener('click',(e)=>{
+            let target=e.target;
+            if (target===modalContainer) {
+                resetModalContent();
+            }
+        })
     }
 
     function uppercaseFirst(str){
@@ -109,19 +138,18 @@ let pokemonRepository= (function() {
 
     /*Filter pokemons with name contains certain text. Returns an array of pokemon objects. */
     function filterByName(searchText) {
-        return pokemonList.filter(pokemon => pokemon.name.indexOf(searchText)!==-1);
+        return pokemonList.filter(pokemon => pokemon.name.toUpperCase().indexOf(searchText.toUpperCase())!==-1);
     }
 
+    let searchField=document.getElementById('search-pokemon');
     function search(){
-        let input=document.getElementById('search-pokemon');
-        let searchList = filterByName(input.value);
+        let searchList = filterByName(searchField.value);
         pokemonListContainer.innerHTML="";
         searchList.forEach(addListItem);
     }
     
-     function searchField() {
-        let searchField=document.getElementById('search-pokemon');
-        searchField.addEventListener('keyup',()=>search());
+     function initSearch() {
+        searchField.addEventListener('keyup',search);
     }
 
 
@@ -132,10 +160,12 @@ let pokemonRepository= (function() {
         loadList,
         loadDetails,
         showDetails,
+        resetModalContent,
+        resetModalByClose,
         uppercaseFirst,
         filterByName,
         search,
-        searchField
+        initSearch
     }
 } ) ();
 
@@ -143,5 +173,6 @@ let pokemonRepository= (function() {
 //On the index page to list every pokemon from the pokemonList in the form of button.
 pokemonRepository.loadList().then(function(){
     pokemonRepository.getAll().forEach (pokemonRepository.addListItem);
-    pokemonRepository.searchField();
+    pokemonRepository.initSearch();
+    pokemonRepository.resetModalByClose();
 });
