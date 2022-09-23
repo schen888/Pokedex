@@ -20,7 +20,8 @@
                 <h1 class="d-inline-block align-middle" id="header-text"><strong>Pokédex</strong></h1>
             </a>
             <form class="form-inline">
-                <input id="search-pokemon" onkeyup="pokemonRepository.search();" class="form-control mr-sm-2" type="search" placeholder="Search pokemon" aria-label="Search">
+            
+                <input id="search-pokemon" class="form-control mr-sm-2" type="search" placeholder="Search pokemon" aria-label="Search">
             </form>
         </nav>
     
@@ -32,13 +33,16 @@
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Pokémon name</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        <h5 class="modal-title" id="exampleModalLabel">Pokémon name</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <img id="pokemon-img" alt="A front image of the choosen pokemon" src="img/pokemon.png" />
+                        <p id="pokemon-height"></p>
+                        <p id="pokemon-weight"></p>
+                        <p id="pokemon-types"></p>
                     </div>
                 </div>
                 </div>
