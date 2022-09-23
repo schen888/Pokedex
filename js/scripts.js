@@ -89,7 +89,7 @@ let pokemonRepository= (function() {
             modalBody.innerHTML='';
             
             let pokemonImage=document.createElement('img');
-            pokemonImage.src=pokemon.imageUrl || './img/pokemon_1280.jpg';
+            pokemonImage.src=pokemon.imageUrl || 'img/pokemon.png';
             pokemonImage.alt='A front image of the choosen pokemon';
             pokemonImage.classList.add('pokemon-img');
             modalBody.appendChild(pokemonImage);
