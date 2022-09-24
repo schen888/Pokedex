@@ -23,10 +23,10 @@ let pokemonRepository= (function() {
 
     //Add single pokemon to pokemonList array.
     function add(pokemon){
-        if (typeof pokemon==="object" && "name" in pokemon && "detailsUrl" in pokemon) {
+        if (typeof pokemon==='object' && 'name' in pokemon && 'detailsUrl' in pokemon) {
             pokemonList.push(pokemon);
         } else {
-            console.log("Please input valid data type. The data need to be an object and contains the 'name' key.");
+            console.log('Please input valid data type. The data need to be an object and contains the "name" key.');
         }
     }
 
@@ -68,7 +68,7 @@ let pokemonRepository= (function() {
             pokemon.height=details.height;
             pokemon.weight=details.weight;
             pokemon.types=details.types;
-        }).catch(e=>crossOriginIsolated.error(e));
+        }).catch(e=>console.error(e));
     }
     
     //Modal
@@ -132,11 +132,11 @@ let pokemonRepository= (function() {
     }
 
     function uppercaseFirst(str){
-        str2=str.charAt(0).toUpperCase() + str.slice(1);
+        let str2=str.charAt(0).toUpperCase() + str.slice(1);
         return str2;
     }
 
-    //Search pokemon
+    //Search
     /*Filter pokemons with name contains certain text. Returns an array of pokemon objects. */
     function filterByName(searchText) {
         return pokemonList.filter(pokemon => pokemon.name.toUpperCase().indexOf(searchText.toUpperCase())!==-1);
@@ -145,7 +145,7 @@ let pokemonRepository= (function() {
     let searchField=document.getElementById('search-pokemon');
     function search(){
         let searchList = filterByName(searchField.value);
-        pokemonListContainer.innerHTML="";
+        pokemonListContainer.innerHTML='';
         searchList.forEach(addListItem);
     }
     
@@ -158,7 +158,6 @@ let pokemonRepository= (function() {
             }
         })
     }
-
 
     return {        
         add,
