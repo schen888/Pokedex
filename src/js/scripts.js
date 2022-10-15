@@ -49,6 +49,7 @@ let pokemonRepository= (function() {
         button.classList.add('pokemon-button');
         button.classList.add('btn');
         button.classList.add('btn-secondary');
+        /*           button.classList.add('focus'); */
         button.setAttribute('data-toggle', 'modal');
         button.setAttribute('data-target', '#pokemon-modal')//bootstrap built-in function. Click the button, modal will be shown.
         pokemonListContainer.appendChild(listItem);
@@ -182,3 +183,8 @@ pokemonRepository.loadList().then(function(){
     pokemonRepository.initSearch();
     pokemonRepository.resetModalByClose();
 });
+
+let test=['a','b','c','d'];
+for (let item of test) {
+    console.log(item);
+}

@@ -34,6 +34,10 @@ main {
   height:100%;
 }
 
+.btn-secondary.focus, .btn-secondary:focus {
+  box-shadow: 0 0 0 0.2rem #e50000 !important
+  }
+
 @media all and (min-width: 1400px) {
   .space-around {
     display: flex;
