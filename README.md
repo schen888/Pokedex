@@ -9,3 +9,5 @@ This project is a small Pokédex app to display a list of Pokémons (1154 entrie
 
 ###### Technical Dependencies ######
 HTML, CSS, ES6, Bootstrap
+
+
