@@ -11,7 +11,8 @@ This project is a small Pokédex app to display a list of Pokémons (1154 entrie
 HTML, CSS, ES6, Bootstrap
 
 
-###### [My Pokédex APP](https://schen888.github.io/pokedex/) ######
+###### Deployed App
+[Pokédex APP](https://schen888.github.io/pokedex/)
 
 ###### App showcase
 <img alt="A screenshot of the Pokédex App, where different Pokémo names are listed" src="/img/screenshots/Screenshot1.png" width="100%">
