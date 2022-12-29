@@ -12,3 +12,7 @@ HTML, CSS, ES6, Bootstrap
 
 
 ###### [My Pokédex APP](https://schen888.github.io/pokedex/) ######
+
+###### App showcase
+<img alt="A screenshot of the Pokédex App, where different Pokémo names are listed" src="/img/screenshots/Screenshot1.png" width="100%">
+<img alt="A screenshot of the App, where 'pika' was given in the search field, the search results are listed and a modal for 'Pikachu-gmax' is open." src="/img/screenshots/Screenshot2.png" width="100%">
